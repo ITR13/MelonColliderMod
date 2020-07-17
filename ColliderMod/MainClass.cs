@@ -19,6 +19,7 @@ namespace ColliderMod
             if (Input.GetKeyDown(ToggleClickedCollider))
             {
                 ColliderToggler.ToggleForwardCollider();
+                ColliderDisplay.UpdateAll();
             }
 
             if (Input.GetKeyDown(RenableAllColliders))
