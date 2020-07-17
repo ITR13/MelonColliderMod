@@ -10,6 +10,9 @@ namespace ColliderMod
         private const KeyCode ToggleXRay = KeyCode.V;
         private const KeyCode ToggleInvisSee = KeyCode.B;
 
+        private const KeyCode RegenAllColliderDisplays = KeyCode.J;
+        private const KeyCode DisableAllColliderDisplays = KeyCode.K;
+
         public override void OnUpdate()
         {
             if (Input.GetKeyDown(ToggleClickedCollider))
@@ -31,6 +34,18 @@ namespace ColliderMod
             {
                 XRay.ToggleDisabledRenderers();
             }
+
+            if (Input.GetKeyDown(RegenAllColliderDisplays))
+            {
+                ColliderDisplay.RegenerateAll();
+            }
+
+            if (Input.GetKeyDown(DisableAllColliderDisplays))
+            {
+                ColliderDisplay.DisableAll();
+            }
+
+            ColliderDisplay.UpdateAll();
         }
     }
 }

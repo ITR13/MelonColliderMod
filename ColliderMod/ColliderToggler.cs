@@ -1,8 +1,6 @@
 ﻿using Il2CppSystem.Collections.Generic;
-using Il2CppSystem.Text;
 using MelonLoader;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
 namespace ColliderMod
 {
