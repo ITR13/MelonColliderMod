@@ -11,7 +11,8 @@ namespace ColliderMod
 {
     public static class ColliderDisplay
     {
-        public const string ShaderName = "Legacy Shaders/Transparent/VertexLit";
+        private static string ShaderName =>
+            ConfigWatcher.ColliderModConfig.defaultShader;
 
         public static readonly HashSet<int> MyRenderers = new HashSet<int>();
 

@@ -6,6 +6,8 @@ namespace ColliderMod
     [Serializable]
     public class ColliderModConfig
     {
+        public string defaultShader = "Legacy Shaders/Transparent/VertexLit";
+
         public KeyBinding toggleClickedCollider = new KeyBinding(KeyCode.LeftAlt, KeyCode.Mouse0);
         public KeyBinding reenableAllColliders = new KeyBinding(KeyCode.LeftAlt, KeyCode.T);
         public KeyBinding toggleXRay = new KeyBinding(KeyCode.LeftAlt, KeyCode.F);
