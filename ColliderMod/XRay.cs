@@ -51,6 +51,7 @@ namespace ColliderMod
 
                 if (OriginallyEnabled.ContainsKey(ptr)) continue;
                 if (OriginallyDisabled.ContainsKey(ptr)) continue;
+                if(ColliderDisplay.MyRenderers.Contains(ptr)) continue;
 
                 mutableRendererCollection.Add(ptr, renderer);
                 renderer.enabled = !toggleEnabled;

@@ -161,6 +161,8 @@ namespace ColliderMod
                 Object.DontDestroyOnLoad(sphereObject);
                 Object.Destroy(sphereObject.GetComponent<Collider>());
                 _transform = sphereObject.transform;
+
+                MyRenderers.Add((int)sphereObject.GetComponent<Renderer>().GetCachedPtr());
             }
 
             private static float Max(float a, float b, float c)
@@ -204,6 +206,8 @@ namespace ColliderMod
                 Object.DontDestroyOnLoad(cubeObject);
                 Object.Destroy(cubeObject.GetComponent<Collider>());
                 _transform = cubeObject.transform;
+
+                MyRenderers.Add((int)cubeObject.GetComponent<Renderer>().GetCachedPtr());
             }
 
             public void Update(BoxCollider collider)
@@ -254,6 +258,10 @@ namespace ColliderMod
                 Object.Destroy(_middleCylinder.GetComponent<Collider>());
 
                 _bottomSphere.Rotate(180, 0, 0);
+
+                MyRenderers.Add((int)_topSphere.GetComponent<Renderer>().GetCachedPtr());
+                MyRenderers.Add((int)_bottomSphere.GetComponent<Renderer>().GetCachedPtr());
+                MyRenderers.Add((int)_middleCylinder.GetComponent<Renderer>().GetCachedPtr());
             }
 
             private static float Max(float a, float b)
