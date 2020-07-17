@@ -1,6 +1,4 @@
-﻿using Il2CppSystem.Resources;
-using MelonLoader;
-using UnityEngine;
+﻿using MelonLoader;
 
 namespace ColliderMod
 {

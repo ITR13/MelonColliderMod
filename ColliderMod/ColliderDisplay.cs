@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using MelonLoader;
-using MelonLoader.Tomlyn.Syntax;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SphereColliderList = Il2CppSystem.Collections.Generic.List<UnityEngine.SphereCollider>;
@@ -27,7 +25,7 @@ namespace ColliderMod
 
         private static Material _triggerMaterial;
         private static Material _solidMaterial;
-        
+
         private static void CreateMaterials()
         {
             var shaders = Resources.FindObjectsOfTypeAll<Shader>();
