@@ -7,11 +7,12 @@ namespace ColliderMod
     {
         private const KeyCode ToggleClickedCollider = KeyCode.N;
         private const KeyCode RenableAllColliders = KeyCode.M;
-        private const KeyCode ToggleXRay = KeyCode.V;
+        private const KeyCode ToggleXRay = KeyCode.X;
         private const KeyCode ToggleInvisSee = KeyCode.B;
 
         private const KeyCode RegenAllColliderDisplays = KeyCode.J;
         private const KeyCode DisableAllColliderDisplays = KeyCode.K;
+        private const KeyCode UpdateAllColliderDisplays = KeyCode.L;
 
         public override void OnUpdate()
         {
@@ -38,6 +39,7 @@ namespace ColliderMod
             if (Input.GetKeyDown(RegenAllColliderDisplays))
             {
                 ColliderDisplay.RegenerateAll();
+                ColliderDisplay.UpdateAll();
             }
 
             if (Input.GetKeyDown(DisableAllColliderDisplays))
@@ -45,7 +47,10 @@ namespace ColliderMod
                 ColliderDisplay.DisableAll();
             }
 
-            ColliderDisplay.UpdateAll();
+            if (Input.GetKeyDown(UpdateAllColliderDisplays))
+            {
+                ColliderDisplay.UpdateAll();
+            }
         }
     }
 }

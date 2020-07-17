@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using MelonLoader;
+using MelonLoader.Tomlyn.Syntax;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SphereColliderList = Il2CppSystem.Collections.Generic.List<UnityEngine.SphereCollider>;
@@ -10,6 +13,8 @@ namespace ColliderMod
 {
     public static class ColliderDisplay
     {
+        public const string ShaderName = "Legacy Shaders/Transparent/VertexLit";
+
         public static readonly HashSet<int> MyRenderers = new HashSet<int>();
 
         private static readonly List<Sphere> SphereCache = new List<Sphere>();
@@ -20,8 +25,53 @@ namespace ColliderMod
         private static readonly BoxColliderList BoxColliders = new BoxColliderList();
         private static readonly CapsuleColliderList CapsuleColliders = new CapsuleColliderList();
 
+        private static Material _triggerMaterial;
+        private static Material _solidMaterial;
+        
+        private static void CreateMaterials()
+        {
+            var shaders = Resources.FindObjectsOfTypeAll<Shader>();
+
+            var selectedShader = Shader.Find(ShaderName);
+
+            if (selectedShader == null)
+            {
+                MelonModLogger.LogError(
+                    $"Failed to find shader with name {ShaderName}. Valid shaders:\n" +
+                    string.Join("\n", shaders.Select(shader => shader.name))
+                );
+                selectedShader = shaders.FirstOrDefault(
+                    shader => shader.isSupported && shader.name.Contains("Transparent")
+                );
+            }
+
+            if (selectedShader == null)
+            {
+                MelonModLogger.LogError(
+                    "Failed to find transparent shader for colliders"
+                );
+                selectedShader = shaders.FirstOrDefault();
+            }
+            else
+            {
+                MelonModLogger.Log(
+                    "Creating material with shader " + selectedShader.name
+                );
+            }
+
+            _triggerMaterial = new Material(selectedShader);
+            _solidMaterial = new Material(selectedShader);
+
+            _triggerMaterial.color = new Color(1, 0, 0, 0.25f);
+            _solidMaterial.color = new Color(0, 1, 0, 0.25f);
+
+            Resources.UnloadUnusedAssets();
+        }
+
         public static void RegenerateAll()
         {
+            CreateMaterials();
+
             var oldSphereCount = SphereColliders.Count;
             var oldBoxCount = BoxColliders.Count;
             var oldCapsuleCount = CapsuleColliders.Count;
@@ -106,14 +156,14 @@ namespace ColliderMod
             var j = 0;
             for (var i = colliders.Count - 1; i >= 0; i--)
             {
-                if (colliders[i] == null)
+                if (colliders[i] == null || !colliders[i].enabled)
                 {
                     colliders.RemoveAt(i);
                     cache[colliders.Count].Enabled = false;
                     continue;
                 }
 
-                cache[j].Update(colliders[i]);
+                cache[j++].Update(colliders[i]);
             }
         }
 
@@ -153,6 +203,7 @@ namespace ColliderMod
             }
 
             private readonly Transform _transform;
+            private readonly Renderer _renderer;
 
             public Sphere()
             {
@@ -162,7 +213,8 @@ namespace ColliderMod
                 Object.Destroy(sphereObject.GetComponent<Collider>());
                 _transform = sphereObject.transform;
 
-                MyRenderers.Add((int)sphereObject.GetComponent<Renderer>().GetCachedPtr());
+                _renderer = sphereObject.GetComponent<Renderer>();
+                MyRenderers.Add((int)_renderer.GetCachedPtr());
             }
 
             private static float Max(float a, float b, float c)
@@ -174,11 +226,6 @@ namespace ColliderMod
 
             public void Update(SphereCollider collider)
             {
-                if (!_transform.gameObject.activeSelf)
-                {
-                    _transform.gameObject.SetActive(true);
-                }
-
                 var t = collider.transform;
                 var ls = t.lossyScale;
 
@@ -187,6 +234,10 @@ namespace ColliderMod
 
                 _transform.localScale = Vector3.one * diameter;
                 _transform.position = position;
+
+                _renderer.sharedMaterial = collider.isTrigger
+                    ? _triggerMaterial
+                    : _solidMaterial;
             }
         }
 
@@ -199,6 +250,7 @@ namespace ColliderMod
             }
 
             private readonly Transform _transform;
+            private readonly Renderer _renderer;
 
             public Cube()
             {
@@ -207,7 +259,8 @@ namespace ColliderMod
                 Object.Destroy(cubeObject.GetComponent<Collider>());
                 _transform = cubeObject.transform;
 
-                MyRenderers.Add((int)cubeObject.GetComponent<Renderer>().GetCachedPtr());
+                _renderer = cubeObject.GetComponent<Renderer>();
+                MyRenderers.Add((int)_renderer.GetCachedPtr());
             }
 
             public void Update(BoxCollider collider)
@@ -220,6 +273,10 @@ namespace ColliderMod
                 );
                 _transform.position = t.TransformPoint(collider.center);
                 _transform.rotation = t.rotation;
+
+                _renderer.sharedMaterial = collider.isTrigger
+                    ? _triggerMaterial
+                    : _solidMaterial;
             }
         }
 
@@ -235,6 +292,10 @@ namespace ColliderMod
             private readonly Transform _topSphere;
             private readonly Transform _bottomSphere;
             private readonly Transform _middleCylinder;
+
+            private readonly Renderer _topRenderer;
+            private readonly Renderer _bottomRenderer;
+            private readonly Renderer _middleRenderer;
 
             public Capsule()
             {
@@ -259,9 +320,14 @@ namespace ColliderMod
 
                 _bottomSphere.Rotate(180, 0, 0);
 
-                MyRenderers.Add((int)_topSphere.GetComponent<Renderer>().GetCachedPtr());
-                MyRenderers.Add((int)_bottomSphere.GetComponent<Renderer>().GetCachedPtr());
-                MyRenderers.Add((int)_middleCylinder.GetComponent<Renderer>().GetCachedPtr());
+
+                _topRenderer = _topSphere.GetComponent<Renderer>();
+                _bottomRenderer = _bottomSphere.GetComponent<Renderer>();
+                _middleRenderer = _middleCylinder.GetComponent<Renderer>();
+
+                MyRenderers.Add((int)_topRenderer.GetCachedPtr());
+                MyRenderers.Add((int)_bottomRenderer.GetCachedPtr());
+                MyRenderers.Add((int)_middleRenderer.GetCachedPtr());
             }
 
             private static float Max(float a, float b)
@@ -322,6 +388,19 @@ namespace ColliderMod
                     midHeight,
                     diameter
                 );
+
+                if (collider.isTrigger)
+                {
+                    _topRenderer.sharedMaterial = _triggerMaterial;
+                    _bottomRenderer.sharedMaterial = _triggerMaterial;
+                    _middleRenderer.sharedMaterial = _triggerMaterial;
+                }
+                else
+                {
+                    _topRenderer.sharedMaterial = _solidMaterial;
+                    _bottomRenderer.sharedMaterial = _solidMaterial;
+                    _middleRenderer.sharedMaterial = _solidMaterial;
+                }
             }
         }
     }
