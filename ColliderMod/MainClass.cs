@@ -1,54 +1,67 @@
-﻿using MelonLoader;
+﻿using Il2CppSystem.Resources;
+using MelonLoader;
 using UnityEngine;
 
 namespace ColliderMod
 {
     public class MainClass : MelonMod
     {
-        private const KeyCode ToggleClickedCollider = KeyCode.N;
-        private const KeyCode RenableAllColliders = KeyCode.M;
-        private const KeyCode ToggleXRay = KeyCode.X;
-        private const KeyCode ToggleInvisSee = KeyCode.B;
+        private static ColliderModConfig Config => ConfigWatcher.ColliderModConfig;
 
-        private const KeyCode RegenAllColliderDisplays = KeyCode.J;
-        private const KeyCode DisableAllColliderDisplays = KeyCode.K;
-        private const KeyCode UpdateAllColliderDisplays = KeyCode.L;
+        private static bool ToggleClickedCollider => Config.toggleClickedCollider.Active();
+        private static bool ReenableAllColliders => Config.reenableAllColliders.Active();
+        private static bool ToggleXRay => Config.toggleXRay.Active();
+        private static bool ToggleInvisSee => Config.toggleInvisSee.Active();
+
+
+        private static bool RegenAllColliderDisplays => Config.regenAllColliderDisplays.Active();
+        private static bool DisableAllColliderDisplays => Config.disableAllColliderDisplays.Active();
+        private static bool UpdateAllColliderDisplays => Config.updateAllColliderDisplays.Active();
+
+
+
+        public override void OnApplicationQuit()
+        {
+            ConfigWatcher.Unload();
+        }
 
         public override void OnUpdate()
         {
-            if (Input.GetKeyDown(ToggleClickedCollider))
+            ConfigWatcher.UpdateIfDirty();
+
+            if (ToggleClickedCollider)
             {
                 ColliderToggler.ToggleForwardCollider();
                 ColliderDisplay.UpdateAll();
             }
 
-            if (Input.GetKeyDown(RenableAllColliders))
+            if (ReenableAllColliders)
             {
                 ColliderToggler.ReenableAll();
             }
 
-            if (Input.GetKeyDown(ToggleXRay))
+            if (ToggleXRay)
             {
                 XRay.ToggleEnabledRenderers();
             }
 
-            if (Input.GetKeyDown(ToggleInvisSee))
+            if (ToggleInvisSee)
             {
                 XRay.ToggleDisabledRenderers();
             }
 
-            if (Input.GetKeyDown(RegenAllColliderDisplays))
+            if (RegenAllColliderDisplays)
             {
                 ColliderDisplay.RegenerateAll();
                 ColliderDisplay.UpdateAll();
             }
 
-            if (Input.GetKeyDown(DisableAllColliderDisplays))
+            if (DisableAllColliderDisplays)
             {
                 ColliderDisplay.DisableAll();
             }
 
-            if (Input.GetKeyDown(UpdateAllColliderDisplays))
+            if (UpdateAllColliderDisplays)
             {
                 ColliderDisplay.UpdateAll();
             }
