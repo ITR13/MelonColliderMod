@@ -1,4 +1,4 @@
-***NB: Not tested in VR. Very laggy. Only affects your local instance***
+***NB: Not tested in VR. Only affects your local instance.***
 
 ### What does this do
 This allows you to see hidden renderers, and visualizes sphere colliders, box colliders, and capsule colliders.  
@@ -17,7 +17,7 @@ Check [The Unity Docs](https://docs.unity3d.com/ScriptReference/KeyCode.html#Pro
 **reenableAllColliders**: Renables previously disabled colliders. (Default: LAlt+R)  
 **toggleXRay**: Disables all renderers except UI and those affected by other features of this mod. (Default: LAlt+F)  
 **toggleInvisSee**: Enables renderers that were originally disabled (Default: Disabled)  
-**regenAllColliderDisplays**: Visualizes all enabled colliders in the world. Laggy in big worlds. (Default: LAlt+E)..
+**regenAllColliderDisplays**: Visualizes all enabled colliders in the world. Really laggy in big worlds. (Default: LAlt+E)..
 **disableAllColliderDisplays**: Hides all visualized colliders. (Default: LAlt+T)  
 **updateAllColliderDisplays**: Updates the position of all current visualizations and removes the ones that have dissappeared.. (Default: Disabled)
 
