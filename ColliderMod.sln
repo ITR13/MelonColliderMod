@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1169
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColliderMod", "ColliderMod\ColliderMod.csproj", "{5270B1D0-017A-4ECE-B13D-2416588EB2BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColliderMod-LegacyInput", "ColliderMod-LegacyInput\ColliderMod-LegacyInput.csproj", "{1AE606BD-AE34-42FA-858E-BE0CB22825C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5270B1D0-017A-4ECE-B13D-2416588EB2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5270B1D0-017A-4ECE-B13D-2416588EB2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5270B1D0-017A-4ECE-B13D-2416588EB2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AE606BD-AE34-42FA-858E-BE0CB22825C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AE606BD-AE34-42FA-858E-BE0CB22825C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AE606BD-AE34-42FA-858E-BE0CB22825C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AE606BD-AE34-42FA-858E-BE0CB22825C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

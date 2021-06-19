@@ -16,8 +16,6 @@ namespace ColliderMod
         private static bool DisableAllColliderDisplays => Config.disableAllColliderDisplays.Active();
         private static bool UpdateAllColliderDisplays => Config.updateAllColliderDisplays.Active();
 
-
-
         public override void OnApplicationQuit()
         {
             ConfigWatcher.Unload();

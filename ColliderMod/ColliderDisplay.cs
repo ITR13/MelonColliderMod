@@ -29,8 +29,12 @@ namespace ColliderMod
 
         private static void CreateMaterials()
         {
+#if FindObjectsOfTypeAll
             var shaders = Resources.FindObjectsOfTypeAll<Shader>();
-
+#else
+            MelonModLogger.LogWarning("Temporary fix for not being able to use Resources.FindObjectsOfTypeAll");
+            var shaders = new Shader[0];
+#endif
             var selectedShader = Shader.Find(ShaderName);
 
             if (selectedShader == null)
