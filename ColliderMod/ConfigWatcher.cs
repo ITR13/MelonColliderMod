@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using MelonLoader;
 using MelonLoader.TinyJSON;
@@ -50,13 +51,13 @@ namespace ColliderMod
             _dirty = 0;
 
 
-            MelonModLogger.Log($"Updating ColliderMod configs at \"{FullPath}\"");
+            MelonLogger.Msg($"Updating ColliderMod configs at \"{FullPath}\"");
 
             var oldJson = "";
 
             if (!File.Exists(FullPath))
             {
-                MelonModLogger.Log(
+                MelonLogger.Msg(
                     $"No config file found, using default"
                 );
                 ColliderModConfig = new ColliderModConfig();
@@ -69,12 +70,34 @@ namespace ColliderMod
             catch (Exception e)
             {
                 ColliderModConfig = new ColliderModConfig();
-                MelonModLogger.LogError(e.ToString());
-                MelonModLogger.Log(
+                MelonLogger.Error(e.ToString());
+                MelonLogger.Msg(
                     "Something went wrong when deserializing json. " +
                     "Delete the config to reset everything to default"
                 );
                 return true;
+            }
+
+            // Safety measure
+            {
+                // This could be a lot prettier, but I'm sleepy
+                var createdColliderSize = new float[3];
+                var createdColliderOffset = new float[3];
+                var createdColliderColor = new float[4];
+
+                void CopyOver(float[] dst, float[] src)
+                {
+                    if(src ==null) return;
+                    Array.Copy(src, dst, src.Length < dst.Length ? src.Length : dst.Length);
+                }
+
+                CopyOver(createdColliderSize, ColliderModConfig.createdColliderSize);
+                CopyOver(createdColliderOffset, ColliderModConfig.createdColliderOffset);
+                CopyOver(createdColliderColor, ColliderModConfig.createdColliderColor);
+
+                ColliderModConfig.createdColliderSize = createdColliderSize;
+                ColliderModConfig.createdColliderOffset = createdColliderOffset;
+                ColliderModConfig.createdColliderColor = createdColliderColor;
             }
 
             var json = JSON.Dump(

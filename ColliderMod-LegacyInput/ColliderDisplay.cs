@@ -26,20 +26,27 @@ namespace ColliderMod
 
         private static Material _triggerMaterial;
         private static Material _solidMaterial;
+        public static Material CreatedColliderMaterial { get; private set; }
+
+        public static void OnSceneLoaded()
+        {
+            CreateMaterials();
+            DisableAll(false);
+        }
 
         private static void CreateMaterials()
         {
 #if FindObjectsOfTypeAll
             var shaders = Resources.FindObjectsOfTypeAll<Shader>();
 #else
-            MelonModLogger.LogWarning("Temporary fix for not being able to use Resources.FindObjectsOfTypeAll");
+            MelonLogger.Msg("Temporary fix for not being able to use Resources.FindObjectsOfTypeAll");
             var shaders = new Shader[0];
 #endif
             var selectedShader = Shader.Find(ShaderName);
 
             if (selectedShader == null)
             {
-                MelonModLogger.LogError(
+                MelonLogger.Error(
                     $"Failed to find shader with name {ShaderName}. Valid shaders:\n" +
                     string.Join("\n", shaders.Select(shader => shader.name))
                 );
@@ -50,25 +57,39 @@ namespace ColliderMod
 
             if (selectedShader == null)
             {
-                MelonModLogger.LogError(
+                MelonLogger.Error(
                     "Failed to find transparent shader for colliders"
                 );
                 selectedShader = shaders.FirstOrDefault();
             }
             else
             {
-                MelonModLogger.Log(
+                MelonLogger.Msg(
                     "Creating material with shader " + selectedShader.name
                 );
             }
 
             _triggerMaterial = new Material(selectedShader);
             _solidMaterial = new Material(selectedShader);
+            CreatedColliderMaterial = new Material(selectedShader);
 
-            _triggerMaterial.color = new Color(1, 0, 0, 0.25f);
-            _solidMaterial.color = new Color(0, 1, 0, 0.25f);
-
+            UpdateColors();
             Resources.UnloadUnusedAssets();
+        }
+
+        public static void UpdateColors()
+        {
+            Color A2C(float[] arr) => new Color(arr[0], arr[1], arr[2], arr[3]);
+            if(_triggerMaterial!=null) _triggerMaterial.color = new Color(1, 0, 0, 0.25f);
+            if(_solidMaterial!=null) _solidMaterial.color = new Color(0, 1, 0, 0.25f);
+            if (CreatedColliderMaterial != null)
+            {
+                CreatedColliderMaterial.color = A2C(ConfigWatcher.ColliderModConfig.createdColliderColor);
+                if (ColliderToggler.CreatedColliderRenderer != null)
+                {
+                    ColliderToggler.CreatedColliderRenderer.sharedMaterial = CreatedColliderMaterial;
+                }
+            }
         }
 
         public static void RegenerateAll()
@@ -87,7 +108,7 @@ namespace ColliderMod
             Regenerate(CubeCache, oldBoxCount, BoxColliders);
             Regenerate(CapsuleCache, oldCapsuleCount, CapsuleColliders);
 
-            MelonModLogger.Log(
+            MelonLogger.Msg(
                 $"Showing {SphereColliders.Count} sphere colliders, {BoxColliders.Count} box colliders, and {CapsuleColliders.Count} capsule colliders"
             );
         }
@@ -170,7 +191,7 @@ namespace ColliderMod
             }
         }
 
-        public static void DisableAll()
+        public static void DisableAll(bool silent = false)
         {
             var oldSphereCount = SphereColliders.Count;
             var oldBoxCount = BoxColliders.Count;
@@ -184,9 +205,12 @@ namespace ColliderMod
             Regenerate(CubeCache, oldBoxCount, BoxColliders);
             Regenerate(CapsuleCache, oldCapsuleCount, CapsuleColliders);
 
-            MelonModLogger.Log(
-                $"No longer showing {oldSphereCount} sphere colliders, {oldBoxCount} box colliders, and {oldCapsuleCount} capsule colliders"
-            );
+            if (!silent)
+            {
+                MelonLogger.Msg(
+                    $"No longer showing {oldSphereCount} sphere colliders, {oldBoxCount} box colliders, and {oldCapsuleCount} capsule colliders"
+                );
+            }
         }
 
         private interface IDisplay<in T, TSelf>

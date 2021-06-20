@@ -32,7 +32,7 @@ namespace ColliderMod
 
             if (mutableRendererCollection.Count != 0)
             {
-                MelonModLogger.Log($"Setting {mutableRendererCollection.Count} renderers back to {toggleEnabled}");
+                MelonLogger.Msg($"Setting {mutableRendererCollection.Count} renderers back to {toggleEnabled}");
                 foreach (var renderer in mutableRendererCollection.Values)
                 {
                     if (renderer == null) continue;
@@ -58,7 +58,7 @@ namespace ColliderMod
                 count++;
             }
 
-            MelonModLogger.Log($"Toggled {count} {word} renderers");
+            MelonLogger.Msg($"Toggled {count} {word} renderers");
         }
 
         private static List<Renderer> AllRenderers()

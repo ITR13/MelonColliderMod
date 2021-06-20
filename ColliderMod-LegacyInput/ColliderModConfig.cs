@@ -16,6 +16,13 @@ namespace ColliderMod
         public KeyBinding regenAllColliderDisplays = new KeyBinding(KeyCode.LeftAlt, KeyCode.E);
         public KeyBinding disableAllColliderDisplays = new KeyBinding(KeyCode.LeftAlt, KeyCode.R);
         public KeyBinding updateAllColliderDisplays = new KeyBinding(KeyCode.None, KeyCode.None);
+
+
+        public KeyBinding createColliderAt = new KeyBinding(KeyCode.None, KeyCode.None);
+        public KeyBinding removeCreatedCollider = new KeyBinding(KeyCode.None, KeyCode.None);
+        public float[] createdColliderSize = { 1f, 0.2f, 1f };
+        public float[] createdColliderOffset = { 0, 0f, 0f };
+        public float[] createdColliderColor = {1, 1, 1, 0.4f};
     }
 
     [Serializable]

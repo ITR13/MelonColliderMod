@@ -40,18 +40,32 @@
     <Compile Include="XRay.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Il2Cppmscorlib">
+    <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="MelonLoader.ModHandler">
+    <Reference Include="MelonLoader">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\MelonLoader.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="UnhollowerBaseLib">
+    <Reference Include="UnhollowerBaseLib, Version=0.4.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\Dependencies\Il2CppAssemblyGenerator\Il2CppAssemblyUnhollower\UnhollowerBaseLib.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule">
+    <Reference Include="UnhollowerRuntimeLib, Version=0.4.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\Dependencies\Il2CppAssemblyGenerator\Il2CppAssemblyUnhollower\UnhollowerRuntimeLib.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.InputLegacyModule">
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\Managed\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
+    <Reference Include="UnityEngine.CoreModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

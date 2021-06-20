@@ -1,4 +1,5 @@
 ﻿using MelonLoader;
+using UnityEngine;
 
 namespace ColliderMod
 {
@@ -16,14 +17,33 @@ namespace ColliderMod
         private static bool DisableAllColliderDisplays => Config.disableAllColliderDisplays.Active();
         private static bool UpdateAllColliderDisplays => Config.updateAllColliderDisplays.Active();
 
+        private static bool CreateColliderAt => Config.createColliderAt.Active();
+        private static bool RemoveCreatedCollider => Config.removeCreatedCollider.Active();
+
         public override void OnApplicationQuit()
         {
             ConfigWatcher.Unload();
         }
 
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        {
+            // NB: toggler needs to be after display because it uses material from display
+            ColliderDisplay.OnSceneLoaded();
+            ColliderToggler.OnSceneLoaded();
+        }
+
         public override void OnUpdate()
         {
-            ConfigWatcher.UpdateIfDirty();
+            if (ConfigWatcher.UpdateIfDirty())
+            {
+                ColliderToggler.UpdateCreatedCollider();
+                ColliderDisplay.UpdateColors();
+            }
+
+            if (RemoveCreatedCollider)
+            {
+                ColliderToggler.RemoveCreatedCollider();
+            }
 
             if (ToggleClickedCollider)
             {
@@ -60,6 +80,11 @@ namespace ColliderMod
             if (UpdateAllColliderDisplays)
             {
                 ColliderDisplay.UpdateAll();
+            }
+
+            if (CreateColliderAt)
+            {
+                ColliderToggler.CreateOrMoveCollider();
             }
         }
     }
