@@ -23,6 +23,9 @@ namespace ColliderMod
         public float[] createdColliderSize = { 1f, 0.2f, 1f };
         public float[] createdColliderOffset = { 0, 0f, 0f };
         public float[] createdColliderColor = {1, 1, 1, 0.4f};
+
+        public float[] triggerColliderColor = {1, 0, 0, 0.25f};
+        public float[] solidColliderColor = {0, 1, 0, 0.25f};
     }
 
     [Serializable]

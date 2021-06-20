@@ -84,6 +84,8 @@ namespace ColliderMod
                 var createdColliderSize = new float[3];
                 var createdColliderOffset = new float[3];
                 var createdColliderColor = new float[4];
+                var solidColliderColor = new float[4];
+                var triggerColliderColor = new float[4];
 
                 void CopyOver(float[] dst, float[] src)
                 {
@@ -94,10 +96,14 @@ namespace ColliderMod
                 CopyOver(createdColliderSize, ColliderModConfig.createdColliderSize);
                 CopyOver(createdColliderOffset, ColliderModConfig.createdColliderOffset);
                 CopyOver(createdColliderColor, ColliderModConfig.createdColliderColor);
+                CopyOver(solidColliderColor, ColliderModConfig.solidColliderColor);
+                CopyOver(triggerColliderColor, ColliderModConfig.triggerColliderColor);
 
                 ColliderModConfig.createdColliderSize = createdColliderSize;
                 ColliderModConfig.createdColliderOffset = createdColliderOffset;
                 ColliderModConfig.createdColliderColor = createdColliderColor;
+                ColliderModConfig.solidColliderColor = solidColliderColor;
+                ColliderModConfig.triggerColliderColor = triggerColliderColor;
             }
 
             var json = JSON.Dump(

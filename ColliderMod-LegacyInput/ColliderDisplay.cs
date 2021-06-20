@@ -80,15 +80,14 @@ namespace ColliderMod
         public static void UpdateColors()
         {
             Color A2C(float[] arr) => new Color(arr[0], arr[1], arr[2], arr[3]);
-            if(_triggerMaterial!=null) _triggerMaterial.color = new Color(1, 0, 0, 0.25f);
-            if(_solidMaterial!=null) _solidMaterial.color = new Color(0, 1, 0, 0.25f);
-            if (CreatedColliderMaterial != null)
+            if (_triggerMaterial != null) _triggerMaterial.color = A2C(ConfigWatcher.ColliderModConfig.triggerColliderColor);
+            if (_solidMaterial != null) _solidMaterial.color = A2C(ConfigWatcher.ColliderModConfig.solidColliderColor);
+
+            if (CreatedColliderMaterial == null) return;
+            CreatedColliderMaterial.color = A2C(ConfigWatcher.ColliderModConfig.createdColliderColor);
+            if (ColliderToggler.CreatedColliderRenderer != null)
             {
-                CreatedColliderMaterial.color = A2C(ConfigWatcher.ColliderModConfig.createdColliderColor);
-                if (ColliderToggler.CreatedColliderRenderer != null)
-                {
-                    ColliderToggler.CreatedColliderRenderer.sharedMaterial = CreatedColliderMaterial;
-                }
+                ColliderToggler.CreatedColliderRenderer.sharedMaterial = CreatedColliderMaterial;
             }
         }
 
