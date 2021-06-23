@@ -1,5 +1,4 @@
 ﻿using MelonLoader;
-using UnityEngine;
 
 namespace ColliderMod
 {

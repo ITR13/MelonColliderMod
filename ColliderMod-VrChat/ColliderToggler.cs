@@ -34,6 +34,7 @@ namespace ColliderMod
                 }
             }
 
+
             UpdateCreatedCollider();
         }
 

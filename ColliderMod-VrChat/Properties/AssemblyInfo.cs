@@ -1,0 +1,1 @@
+D:/User/Documents/MelonMods/ColliderToggler/ColliderMod/Properties/AssemblyInfo.cs

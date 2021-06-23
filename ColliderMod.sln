@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColliderMod", "ColliderMod\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColliderMod-LegacyInput", "ColliderMod-LegacyInput\ColliderMod-LegacyInput.csproj", "{1AE606BD-AE34-42FA-858E-BE0CB22825C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColliderMod-VrChat", "ColliderMod-VrChat\ColliderMod-VrChat.csproj", "{14D5F9CC-DED2-4718-BD60-F27E8E15F34C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1AE606BD-AE34-42FA-858E-BE0CB22825C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AE606BD-AE34-42FA-858E-BE0CB22825C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AE606BD-AE34-42FA-858E-BE0CB22825C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14D5F9CC-DED2-4718-BD60-F27E8E15F34C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D5F9CC-DED2-4718-BD60-F27E8E15F34C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D5F9CC-DED2-4718-BD60-F27E8E15F34C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D5F9CC-DED2-4718-BD60-F27E8E15F34C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
