@@ -1,9 +1,14 @@
 ﻿using MelonLoader;
+using System;
 
 namespace ColliderMod
 {
     public class MainClass : MelonMod
     {
+        public static Action<string> Msg;
+        public static Action<string> Warning;
+        public static Action<string> Error;
+
         private static ColliderModConfig Config => ConfigWatcher.ColliderModConfig;
 
         private static bool ToggleClickedCollider => Config.toggleClickedCollider.Active();
@@ -21,12 +26,15 @@ namespace ColliderMod
 
         public static bool ForceDisable;
 
-#if VRCHAT
         public override void OnApplicationStart()
         {
-            WorldCheck.PatchMethods();
-        }
+            Msg = LoggerInstance.Msg;
+            Warning = LoggerInstance.Warning;
+            Error = LoggerInstance.Error;
+#if VRCHAT
+            WorldCheck.Init();
 #endif
+        }
 
         public override void OnApplicationQuit()
         {
