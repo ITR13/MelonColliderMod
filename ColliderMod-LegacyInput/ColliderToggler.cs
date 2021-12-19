@@ -57,7 +57,7 @@ namespace ColliderMod
 
             if (!silent)
             {
-                MelonLogger.Msg($"Reenabled {reenabled} colliders, skipped {skipped} colliders");
+                MainClass.Msg($"Reenabled {reenabled} colliders, skipped {skipped} colliders");
             }
         }
 
@@ -66,7 +66,7 @@ namespace ColliderMod
             var camera = Camera.main;
             if (camera == null)
             {
-                MelonLogger.Warning("No camera found, cannot toggle");
+                MainClass.Warning("No camera found, cannot toggle");
                 return;
             }
 
@@ -75,13 +75,13 @@ namespace ColliderMod
 
             if (hitInfo.collider == null)
             {
-                MelonLogger.Warning("Clicked collider has no collider?");
+                MainClass.Warning("Clicked collider has no collider?");
                 return;
             }
 
             if (hitInfo.collider == _createdCollider)
             {
-                MelonLogger.Msg("Ignoring clicked collider since it's the created one");
+                MainClass.Msg("Ignoring clicked collider since it's the created one");
                 return;
             }
 
@@ -95,7 +95,7 @@ namespace ColliderMod
             ToggledColliders.Add(collider);
 
             var name = GetColliderName(collider);
-            MelonLogger.Msg($"Toggled collider {name}");
+            MainClass.Msg($"Toggled collider {name}");
         }
 
         private static string GetColliderName(Collider collider)
@@ -121,13 +121,13 @@ namespace ColliderMod
             var camera = Camera.main;
             if (camera == null)
             {
-                MelonLogger.Warning("No camera found, cannot toggle");
+                MainClass.Warning("No camera found, cannot toggle");
                 return;
             }
 
             if (_createdColliderTransform == null)
             {
-                MelonLogger.Warning("Created collider not yet created");
+                MainClass.Warning("Created collider not yet created");
                 return;
             }
 
@@ -142,7 +142,7 @@ namespace ColliderMod
             {
                 _createdColliderPosition = hitInfo.point;
             }
-            MelonLogger.Msg($"Setting root created collider position to {_createdColliderPosition[0]},{_createdColliderPosition[1]},{_createdColliderPosition[2]}");
+            MainClass.Msg($"Setting root created collider position to {_createdColliderPosition[0]},{_createdColliderPosition[1]},{_createdColliderPosition[2]}");
 
             UpdateCreatedCollider();
         }
@@ -160,7 +160,7 @@ namespace ColliderMod
             {
                 CreatedColliderRenderer.sharedMaterial = ColliderDisplay.CreatedColliderMaterial;
             }
-            MelonLogger.Msg($"Created collider is at {_createdColliderTransform.position[0]},{_createdColliderTransform.position[1]},{_createdColliderTransform.position[2]} with size {_createdColliderTransform.localScale[0]},{_createdColliderTransform.localScale[1]},{_createdColliderTransform.localScale[2]}");
+            MainClass.Msg($"Created collider is at {_createdColliderTransform.position[0]},{_createdColliderTransform.position[1]},{_createdColliderTransform.position[2]} with size {_createdColliderTransform.localScale[0]},{_createdColliderTransform.localScale[1]},{_createdColliderTransform.localScale[2]}");
         }
 
         public static void RemoveCreatedCollider()

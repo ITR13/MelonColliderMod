@@ -39,14 +39,14 @@ namespace ColliderMod
 #if FindObjectsOfTypeAll
             var shaders = Resources.FindObjectsOfTypeAll<Shader>();
 #else
-            MelonLogger.Msg("Temporary fix for not being able to use Resources.FindObjectsOfTypeAll");
+            MainClass.Msg("Temporary fix for not being able to use Resources.FindObjectsOfTypeAll");
             var shaders = new Shader[0];
 #endif
             var selectedShader = Shader.Find(ShaderName);
 
             if (selectedShader == null)
             {
-                MelonLogger.Error(
+                MainClass.Error(
                     $"Failed to find shader with name {ShaderName}. Valid shaders:\n" +
                     string.Join("\n", shaders.Select(shader => shader.name))
                 );
@@ -57,14 +57,14 @@ namespace ColliderMod
 
             if (selectedShader == null)
             {
-                MelonLogger.Error(
+                MainClass.Error(
                     "Failed to find transparent shader for colliders"
                 );
                 selectedShader = shaders.FirstOrDefault();
             }
             else
             {
-                MelonLogger.Msg(
+                MainClass.Msg(
                     "Creating material with shader " + selectedShader.name
                 );
             }
@@ -107,7 +107,7 @@ namespace ColliderMod
             Regenerate(CubeCache, oldBoxCount, BoxColliders);
             Regenerate(CapsuleCache, oldCapsuleCount, CapsuleColliders);
 
-            MelonLogger.Msg(
+            MainClass.Msg(
                 $"Showing {SphereColliders.Count} sphere colliders, {BoxColliders.Count} box colliders, and {CapsuleColliders.Count} capsule colliders"
             );
         }
@@ -206,7 +206,7 @@ namespace ColliderMod
 
             if (!silent)
             {
-                MelonLogger.Msg(
+                MainClass.Msg(
                     $"No longer showing {oldSphereCount} sphere colliders, {oldBoxCount} box colliders, and {oldCapsuleCount} capsule colliders"
                 );
             }

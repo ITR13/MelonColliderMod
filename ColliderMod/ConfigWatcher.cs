@@ -50,13 +50,13 @@ namespace ColliderMod
             _dirty = 0;
 
 
-            MelonLogger.Msg($"Updating ColliderMod configs at \"{FullPath}\"");
+            MainClass.Msg($"Updating ColliderMod configs at \"{FullPath}\"");
 
             var oldJson = "";
 
             if (!File.Exists(FullPath))
             {
-                MelonLogger.Msg(
+                MainClass.Msg(
                     $"No config file found, using default"
                 );
                 ColliderModConfig = new ColliderModConfig();
@@ -69,8 +69,8 @@ namespace ColliderMod
             catch (Exception e)
             {
                 ColliderModConfig = new ColliderModConfig();
-                MelonLogger.Error(e.ToString());
-                MelonLogger.Msg(
+                MainClass.Error(e.ToString());
+                MainClass.Msg(
                     "Something went wrong when deserializing json. " +
                     "Delete the config to reset everything to default"
                 );
