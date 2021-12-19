@@ -1,0 +1,18 @@
+{
+  "_id": 94,
+  "name": "ITR's Collider Mod",
+  "modversion": "1.1.2",
+  "vrchatversion": "Build 1160",
+  "loaderversion": "0.5.2",
+  "modtype": "Mod",
+  "author": "ITR",
+  "description": "Powerful collider modification and visualization tool. [Click here for all features](https://github.com/ITR13/MelonColliderMod/blob/master/README.md)",
+  "requirements": [
+	"[VRChatUtilityKit](https://github.com/loukylor/VRC-Mods/releases)",
+  ],
+  "searchtags": ["ITR", "Collider", "Colliders", "Xray", "noclip", "fly", "flying"],
+  "downloadlink": "https://github.com/ITR13/MelonColliderMod/releases/download/1.1.2/ColliderMod-VrChat.dll",
+  "sourcelink": "https://github.com/ITR13/MelonColliderMod",
+  "changelog": "Updated to latest version",
+  "embedcolor": "007F00",
+}
