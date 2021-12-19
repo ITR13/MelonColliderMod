@@ -24,7 +24,7 @@ namespace ColliderMod
 #if VRCHAT
         public override void OnApplicationStart()
         {
-            WorldCheck.PatchMethods();
+            WorldCheck.Init();
         }
 #endif
 
