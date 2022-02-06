@@ -15,7 +15,7 @@ namespace ColliderMod
 
         public static void OnSceneLoaded()
         {
-            ReenableAll(false);
+            ReenableAll(true);
 
             if (_createdColliderTransform == null)
             {

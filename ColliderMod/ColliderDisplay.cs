@@ -30,8 +30,9 @@ namespace ColliderMod
 
         public static void OnSceneLoaded()
         {
+            MainClass.Msg("Reinitializing ColliderMod...");
             CreateMaterials();
-            DisableAll(false);
+            DisableAll(true);
         }
 
         private static void CreateMaterials()
