@@ -43,9 +43,11 @@ namespace ColliderMod
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
+#if !VRCHAT
             // NB: toggler needs to be after display because it uses material from display
             ColliderDisplay.OnSceneLoaded();
             ColliderToggler.OnSceneLoaded();
+#endif
         }
 
         public override void OnUpdate()

@@ -11,6 +11,11 @@ namespace ColliderMod
             VRCUtils.OnEmmWorldCheckCompleted += areRiskyFuncsAllowed =>
             {
                 MainClass.ForceDisable = !areRiskyFuncsAllowed;
+                if (!MainClass.ForceDisable)
+                {
+                    ColliderDisplay.OnSceneLoaded();
+                    ColliderToggler.OnSceneLoaded();
+                }
             };
         }
     }
